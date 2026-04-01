@@ -1,5 +1,7 @@
 package com.example.booking_system_practice.controller;
 
+import com.example.booking_system_practice.DTO.request.CreateUserRequest;
+import com.example.booking_system_practice.DTO.response.UserResponse;
 import com.example.booking_system_practice.entity.User;
 import com.example.booking_system_practice.service.UserService;
 import org.springframework.web.bind.annotation.*;
@@ -17,17 +19,17 @@ public class UserController {
     }
 
     @PostMapping
-    public User create(@RequestParam String name, @RequestParam String email) {
-        return userService.createUser(name, email);
+    public UserResponse create(@RequestBody CreateUserRequest request) {
+        return userService.createUser(request);
     }
 
     @GetMapping
-    public List<User> getAll() {
+    public List<UserResponse> getAll() {
         return userService.getAllUsers();
     }
 
     @GetMapping("/{id}")
-    public User getById(@PathVariable Long id) {
+    public UserResponse getById(@PathVariable Long id) {
         return userService.getUserById(id);
     }
 
