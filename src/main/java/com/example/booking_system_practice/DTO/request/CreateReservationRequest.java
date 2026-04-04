@@ -1,5 +1,6 @@
 package com.example.booking_system_practice.DTO.request;
 
+import com.example.booking_system_practice.annotation.ValidDates;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
@@ -13,6 +14,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
+@ValidDates
 public class CreateReservationRequest {
 
     @NotNull(message = "User ID is required")
