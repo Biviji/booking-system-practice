@@ -5,12 +5,10 @@ import com.example.booking_system_practice.DTO.response.RoomResponse;
 import com.example.booking_system_practice.entity.Room;
 import com.example.booking_system_practice.exception.NotFoundException;
 import com.example.booking_system_practice.mapper.RoomMapper;
-import com.example.booking_system_practice.mapper.RoomMapperManual;
 import com.example.booking_system_practice.repository.RoomRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service

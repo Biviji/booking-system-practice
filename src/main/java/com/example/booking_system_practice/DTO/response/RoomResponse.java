@@ -2,7 +2,6 @@ package com.example.booking_system_practice.DTO.response;
 
 import com.example.booking_system_practice.enums.RoomType;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 
 @Getter
