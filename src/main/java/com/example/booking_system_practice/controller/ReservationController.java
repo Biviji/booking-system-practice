@@ -3,6 +3,7 @@ package com.example.booking_system_practice.controller;
 import com.example.booking_system_practice.DTO.request.CreateReservationRequest;
 import com.example.booking_system_practice.DTO.response.ReservationResponse;
 import com.example.booking_system_practice.service.ReservationService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,7 @@ public class ReservationController {
     }
 
     @PostMapping
-    public ReservationResponse createReservation(@RequestBody CreateReservationRequest request) {
+    public ReservationResponse createReservation(@Valid @RequestBody CreateReservationRequest request) {
         return reservationService.createReservation(request);
     }
 

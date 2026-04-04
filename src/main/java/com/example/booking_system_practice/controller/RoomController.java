@@ -3,6 +3,7 @@ package com.example.booking_system_practice.controller;
 import com.example.booking_system_practice.DTO.request.CreateRoomRequest;
 import com.example.booking_system_practice.DTO.response.RoomResponse;
 import com.example.booking_system_practice.service.RoomService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class RoomController {
     }
 
     @PostMapping
-    public RoomResponse createRoom(@RequestBody CreateRoomRequest request) {
+    public RoomResponse createRoom(@Valid @RequestBody CreateRoomRequest request) {
         return roomService.createRoom(request);
     }
 
