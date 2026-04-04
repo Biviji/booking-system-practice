@@ -71,19 +71,19 @@ public class ReservationService {
         return reservationMapper.toResponse(reservation);
     }
 
-    List<ReservationResponse> findByUserId(Long userId) {
+    public List<ReservationResponse> findByUserId(Long userId) {
         return reservationRepository.findByUserId(userId).stream()
                 .map(reservationMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
-    List<ReservationResponse> findByRoomId(Long roomId) {
+    public List<ReservationResponse> findByRoomId(Long roomId) {
         return reservationRepository.findByRoomId(roomId).stream()
                 .map(reservationMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
-    List<ReservationResponse> findByDateRange(LocalDate start, LocalDate end) {
+    public List<ReservationResponse> findByDateRange(LocalDate start, LocalDate end) {
         return reservationRepository.findByDateRange(start, end).stream()
                 .map(reservationMapper::toResponse)
                 .collect(Collectors.toList());
