@@ -4,7 +4,6 @@ import com.example.booking_system_practice.DTO.request.CreateReservationRequest;
 import com.example.booking_system_practice.DTO.response.ReservationResponse;
 import com.example.booking_system_practice.service.ReservationService;
 import jakarta.validation.Valid;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
