@@ -1,5 +1,6 @@
 package com.example.booking_system_practice.DTO.request;
 
+import com.example.booking_system_practice.enums.RoomType;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CreateRoomRequest {
     private String roomNumber;
-    private String roomType;
+    private RoomType roomType;
     private Double roomPrice;
     private Boolean isAvailable;
 }
