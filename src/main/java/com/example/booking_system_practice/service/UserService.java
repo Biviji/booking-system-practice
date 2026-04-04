@@ -4,6 +4,7 @@ import com.example.booking_system_practice.DTO.request.CreateUserRequest;
 import com.example.booking_system_practice.DTO.response.UserResponse;
 import com.example.booking_system_practice.entity.User;
 import com.example.booking_system_practice.exception.NotFoundException;
+import com.example.booking_system_practice.mapper.UserMapper;
 import com.example.booking_system_practice.repository.UserInMemoryRepository;
 import com.example.booking_system_practice.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -15,32 +16,28 @@ import java.util.stream.Collectors;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
+        this.userMapper = userMapper;
     }
 
     public UserResponse createUser(CreateUserRequest request) {
-        User user = new User(null, request.getName(), request.getEmail());
-//        Save a user to assign ID after DB creation
+        User user = userMapper.toEntity(request);
         User saved = userRepository.saveUser(user);
-//        Transform saved user to a response DTO to hide internal data (id)
-        return toResponse(saved);
-    }
-
-    private UserResponse toResponse(User user) {
-        return new UserResponse(user.getUserId(), user.getUserName(), user.getUserEmail());
+        return userMapper.toResponse(saved);
     }
 
     public List<UserResponse> getAllUsers() {
         return userRepository.getAllUsers().stream()
-                .map(this::toResponse)
+                .map(userMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
     public UserResponse getUserById(Long id) {
         User user = userRepository.getUserById(id)
                 .orElseThrow(() -> new NotFoundException("User with id " + id + " not found"));
-        return toResponse(user);
+        return userMapper.toResponse(user);
     }
 }
