@@ -41,7 +41,7 @@ public class RoomService {
     }
 
     public List<RoomResponse> getRoomByAvailability(boolean isAvailable) {
-        return roomRepository.getRoomByAvailability(true).stream().map(roomMapper::toResponse)
+        return roomRepository.getRoomByAvailability(isAvailable).stream().map(roomMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
