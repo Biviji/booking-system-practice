@@ -49,7 +49,7 @@ public class ReservationInMemoryRepository implements ReservationRepository {
     @Override
     public List<Reservation> getReservationByDateRange(LocalDate start, LocalDate end) {
         return reservationMap.values().stream()
-                .filter(r -> !r.getCheckInDate().isBefore(start) && r.getCheckInDate().isAfter(end))
+                .filter(r -> !r.getCheckInDate().isBefore(start) && !r.getCheckInDate().isAfter(end))
                 .collect(Collectors.toList());
     }
 }

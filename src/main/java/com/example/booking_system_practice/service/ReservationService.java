@@ -35,7 +35,7 @@ public class ReservationService {
 
     public ReservationResponse createReservation(CreateReservationRequest request) {
 
-        User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new NotFoundException("User with id " + request.getUserId() + " not found!"));
+        User user = userRepository.getUserById(request.getUserId()).orElseThrow(() -> new NotFoundException("User with id " + request.getUserId() + " not found!"));
         Room room = roomRepository.getRoomById(request.getRoomId()).orElseThrow(() -> new NotFoundException("Room with ID " + request.getRoomId() + " not found!"));
 
         if (!room.getIsAvailable()) {
