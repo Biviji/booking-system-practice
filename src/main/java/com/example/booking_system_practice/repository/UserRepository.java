@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository {
-    public User saveUser(User user);
-    public List<User> getAllUsers();
-    public Optional<User> getUserById(Long id);
+    User saveUser(User user);
+    List<User> getAllUsers();
+    Optional<User> getUserById(Long id);
 }
