@@ -12,7 +12,7 @@ public class UserInMemoryRepository implements UserRepository {
     private Long nextId = 1L;
 
     @Override
-    public User save(User user) {
+    public User saveUser(User user) {
         if (user.getUserId() == null) {
             user.setUserId(nextId++);
         }
@@ -21,12 +21,12 @@ public class UserInMemoryRepository implements UserRepository {
     }
 
     @Override
-    public List<User> findAll() {
+    public List<User> getAllUsers() {
         return new ArrayList<>(storage.values());
     }
 
     @Override
-    public Optional<User> findById(Long id) {
+    public Optional<User> getUserById(Long id) {
         return Optional.ofNullable(storage.get(id));
     }
 }

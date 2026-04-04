@@ -14,7 +14,7 @@ public class ReservationInMemoryRepository implements ReservationRepository {
     private Long nextReservationId = 1L;
 
     @Override
-    public Reservation save(Reservation reservation) {
+    public Reservation saveReservation(Reservation reservation) {
         if (reservation.getReservationId() == null) {
             reservation.setReservationId(nextReservationId++);
         }
@@ -23,31 +23,31 @@ public class ReservationInMemoryRepository implements ReservationRepository {
     }
 
     @Override
-    public List<Reservation> findAll() {
+    public List<Reservation> getAllReservations() {
         return new ArrayList<>(reservationMap.values());
     }
 
     @Override
-    public Optional<Reservation> findById(Long id) {
+    public Optional<Reservation> getReservationById(Long id) {
         return Optional.ofNullable(reservationMap.get(id));
     }
 
     @Override
-    public List<Reservation> findByUserId(Long userId) {
+    public List<Reservation> getReservationByUserId(Long userId) {
         return reservationMap.values().stream()
                 .filter(r -> r.getUserId().equals(userId))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<Reservation> findByRoomId(Long roomId) {
+    public List<Reservation> getReservationByRoomId(Long roomId) {
         return reservationMap.values().stream()
                 .filter(r -> r.getRoomId().equals(roomId))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<Reservation> findByDateRange(LocalDate start, LocalDate end) {
+    public List<Reservation> getReservationByDateRange(LocalDate start, LocalDate end) {
         return reservationMap.values().stream()
                 .filter(r -> !r.getCheckInDate().isBefore(start) && r.getCheckInDate().isAfter(end))
                 .collect(Collectors.toList());

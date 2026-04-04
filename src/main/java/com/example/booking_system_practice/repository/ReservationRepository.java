@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ReservationRepository {
-    Reservation save(Reservation reservation);
-    List<Reservation> findAll();
-    Optional<Reservation> findById(Long id);
-    List<Reservation> findByUserId(Long userId);
-    List<Reservation> findByRoomId(Long roomId);
-    List<Reservation> findByDateRange(LocalDate start, LocalDate end);
+    Reservation saveReservation(Reservation reservation);
+    List<Reservation> getAllReservations();
+    Optional<Reservation> getReservationById(Long id);
+    List<Reservation> getReservationByUserId(Long userId);
+    List<Reservation> getReservationByRoomId(Long roomId);
+    List<Reservation> getReservationByDateRange(LocalDate start, LocalDate end);
 }

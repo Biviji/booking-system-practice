@@ -23,7 +23,7 @@ public class UserService {
     public UserResponse createUser(CreateUserRequest request) {
         User user = new User(null, request.getName(), request.getEmail());
 //        Save a user to assign ID after DB creation
-        User saved = userRepository.save(user);
+        User saved = userRepository.saveUser(user);
 //        Transform saved user to a response DTO to hide internal data (id)
         return toResponse(saved);
     }
@@ -33,13 +33,13 @@ public class UserService {
     }
 
     public List<UserResponse> getAllUsers() {
-        return userRepository.findAll().stream()
+        return userRepository.getAllUsers().stream()
                 .map(this::toResponse)
                 .collect(Collectors.toList());
     }
 
     public UserResponse getUserById(Long id) {
-        User user = userRepository.findById(id)
+        User user = userRepository.getUserById(id)
                 .orElseThrow(() -> new NotFoundException("User with id " + id + " not found"));
         return toResponse(user);
     }

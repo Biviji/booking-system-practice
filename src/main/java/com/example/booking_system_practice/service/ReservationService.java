@@ -36,13 +36,13 @@ public class ReservationService {
     public ReservationResponse createReservation(CreateReservationRequest request) {
 
         User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new NotFoundException("User with id " + request.getUserId() + " not found!"));
-        Room room = roomRepository.findById(request.getRoomId()).orElseThrow(() -> new NotFoundException("Room with ID " + request.getRoomId() + " not found!"));
+        Room room = roomRepository.getRoomById(request.getRoomId()).orElseThrow(() -> new NotFoundException("Room with ID " + request.getRoomId() + " not found!"));
 
         if (!room.getIsAvailable()) {
             throw new RuntimeException("Room is not available!");
         }
 
-        List<Reservation> existingReservations = reservationRepository.findByRoomId(request.getRoomId());
+        List<Reservation> existingReservations = reservationRepository.getReservationByRoomId(request.getRoomId());
 
         boolean isOverlap = existingReservations.stream()
                 .anyMatch(r -> !r.getCheckOutDate().isBefore(request.getCheckInDate()) &&
@@ -54,37 +54,37 @@ public class ReservationService {
 
         Reservation reservation = reservationMapper.toEntity(request);
         reservation.setStatus(ReservationStatus.CONFIRMED);
-        Reservation saved = reservationRepository.save(reservation);
+        Reservation saved = reservationRepository.saveReservation(reservation);
 
         return reservationMapper.toResponse(saved);
     }
 
-    public List<ReservationResponse> findAll() {
-        return reservationRepository.findAll().stream()
+    public List<ReservationResponse> getAllReservations() {
+        return reservationRepository.getAllReservations().stream()
                 .map(reservationMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
-    public ReservationResponse findById(Long id) {
-        Reservation reservation = reservationRepository.findById(id)
+    public ReservationResponse getReservationById(Long id) {
+        Reservation reservation = reservationRepository.getReservationById(id)
                 .orElseThrow(() -> new NotFoundException("Reservation with ID " + id + " has not been found!"));
         return reservationMapper.toResponse(reservation);
     }
 
-    public List<ReservationResponse> findByUserId(Long userId) {
-        return reservationRepository.findByUserId(userId).stream()
+    public List<ReservationResponse> getReservationByUserId(Long userId) {
+        return reservationRepository.getReservationByUserId(userId).stream()
                 .map(reservationMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
-    public List<ReservationResponse> findByRoomId(Long roomId) {
-        return reservationRepository.findByRoomId(roomId).stream()
+    public List<ReservationResponse> getReservationByRoomId(Long roomId) {
+        return reservationRepository.getReservationByRoomId(roomId).stream()
                 .map(reservationMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
-    public List<ReservationResponse> findByDateRange(LocalDate start, LocalDate end) {
-        return reservationRepository.findByDateRange(start, end).stream()
+    public List<ReservationResponse> getReservationByDateRange(LocalDate start, LocalDate end) {
+        return reservationRepository.getReservationByDateRange(start, end).stream()
                 .map(reservationMapper::toResponse)
                 .collect(Collectors.toList());
     }

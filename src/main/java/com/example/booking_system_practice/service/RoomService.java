@@ -25,23 +25,23 @@ public class RoomService {
 
     public RoomResponse createRoom(CreateRoomRequest request) {
         Room room = roomMapper.toEntity(request);
-        Room saved = roomRepository.save(room);
+        Room saved = roomRepository.saveRoom(room);
         return roomMapper.toResponse(saved);
     }
 
-    public List<RoomResponse> findAll() {
-        return roomRepository.findAll().stream()
+    public List<RoomResponse> getAllRooms() {
+        return roomRepository.getAllRooms().stream()
                 .map(roomMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
-    public RoomResponse findById(Long id) {
-        Room room = roomRepository.findById(id).orElseThrow(() -> new NotFoundException("Room with ID " + id + " not found"));
+    public RoomResponse getRoomById(Long id) {
+        Room room = roomRepository.getRoomById(id).orElseThrow(() -> new NotFoundException("Room with ID " + id + " not found"));
         return roomMapper.toResponse(room);
     }
 
-    public List<RoomResponse> findByAvailable(boolean isAvailable) {
-        return roomRepository.findByAvailable(true).stream().map(roomMapper::toResponse)
+    public List<RoomResponse> getRoomByAvailability(boolean isAvailable) {
+        return roomRepository.getRoomByAvailability(true).stream().map(roomMapper::toResponse)
                 .collect(Collectors.toList());
     }
 

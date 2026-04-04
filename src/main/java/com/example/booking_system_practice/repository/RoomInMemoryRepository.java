@@ -12,7 +12,7 @@ public class RoomInMemoryRepository implements RoomRepository {
     private Long nextRoomId = 1L;
 
     @Override
-    public Room save(Room room) {
+    public Room saveRoom(Room room) {
         if (room.getRoomId() == null) {
             room.setRoomId(nextRoomId++);
         }
@@ -21,17 +21,17 @@ public class RoomInMemoryRepository implements RoomRepository {
     }
 
     @Override
-    public List<Room> findAll() {
+    public List<Room> getAllRooms() {
         return new ArrayList<>(roomMap.values());
     }
 
     @Override
-    public Optional<Room> findById(Long id) {
+    public Optional<Room> getRoomById(Long id) {
         return Optional.ofNullable(roomMap.get(id));
     }
 
     @Override
-    public List<Room> findByAvailable(boolean isAvailable) {
+    public List<Room> getRoomByAvailability(boolean isAvailable) {
         return roomMap.values().stream()
                 .filter(room -> room.getIsAvailable().equals(isAvailable))
                 .collect(Collectors.toList());
