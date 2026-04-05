@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class RoomResponse {
-    private Long id;
+    private Long roomId;
     private String roomNumber;
     private RoomType roomType;
     private Double roomPrice;
