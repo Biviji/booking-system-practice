@@ -7,11 +7,13 @@ import com.example.booking_system_practice.exception.NotFoundException;
 import com.example.booking_system_practice.mapper.RoomMapper;
 import com.example.booking_system_practice.repository.RoomRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional(readOnly = true)
 public class RoomService {
 
     private final RoomRepository roomRepository;
@@ -21,25 +23,26 @@ public class RoomService {
         this.roomMapper = roomMapper;
     }
 
+    @Transactional
     public RoomResponse createRoom(CreateRoomRequest request) {
         Room room = roomMapper.toEntity(request);
-        Room saved = roomRepository.saveRoom(room);
+        Room saved = roomRepository.save(room);
         return roomMapper.toResponse(saved);
     }
 
     public List<RoomResponse> getAllRooms() {
-        return roomRepository.getAllRooms().stream()
+        return roomRepository.findAll().stream()
                 .map(roomMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
     public RoomResponse getRoomById(Long id) {
-        Room room = roomRepository.getRoomById(id).orElseThrow(() -> new NotFoundException("Room with ID " + id + " not found"));
+        Room room = roomRepository.findById(id).orElseThrow(() -> new NotFoundException("Room with ID " + id + " not found"));
         return roomMapper.toResponse(room);
     }
 
     public List<RoomResponse> getRoomByAvailability(boolean isAvailable) {
-        return roomRepository.getRoomByAvailability(isAvailable).stream().map(roomMapper::toResponse)
+        return roomRepository.findByIsAvailable(isAvailable).stream().map(roomMapper::toResponse)
                 .collect(Collectors.toList());
     }
 

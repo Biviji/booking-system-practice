@@ -11,6 +11,7 @@ import com.example.booking_system_practice.mapper.ReservationMapper;
 import com.example.booking_system_practice.repository.ReservationRepository;
 import com.example.booking_system_practice.repository.RoomRepository;
 import com.example.booking_system_practice.repository.UserRepository;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional(readOnly = true)
 public class ReservationService {
 
     private final ReservationRepository reservationRepository;
@@ -33,16 +35,17 @@ public class ReservationService {
         this.reservationMapper = reservationMapper;
     }
 
+    @Transactional
     public ReservationResponse createReservation(CreateReservationRequest request) {
 
-        User user = userRepository.getUserById(request.getUserId()).orElseThrow(() -> new NotFoundException("User with id " + request.getUserId() + " not found!"));
-        Room room = roomRepository.getRoomById(request.getRoomId()).orElseThrow(() -> new NotFoundException("Room with ID " + request.getRoomId() + " not found!"));
+        User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new NotFoundException("User with id " + request.getUserId() + " not found!"));
+        Room room = roomRepository.findById(request.getRoomId()).orElseThrow(() -> new NotFoundException("Room with ID " + request.getRoomId() + " not found!"));
 
         if (!room.getIsAvailable()) {
             throw new RuntimeException("Room is not available!");
         }
 
-        List<Reservation> existingReservations = reservationRepository.getReservationByRoomId(request.getRoomId());
+        List<Reservation> existingReservations = reservationRepository.findByRoomRoomId(request.getRoomId());
 
         boolean isOverlap = existingReservations.stream()
                 .anyMatch(r -> !r.getCheckOutDate().isBefore(request.getCheckInDate()) &&
@@ -54,37 +57,37 @@ public class ReservationService {
 
         Reservation reservation = reservationMapper.toEntity(request);
         reservation.setStatus(ReservationStatus.CONFIRMED);
-        Reservation saved = reservationRepository.saveReservation(reservation);
+        Reservation saved = reservationRepository.save(reservation);
 
         return reservationMapper.toResponse(saved);
     }
 
     public List<ReservationResponse> getAllReservations() {
-        return reservationRepository.getAllReservations().stream()
+        return reservationRepository.findAll().stream()
                 .map(reservationMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
     public ReservationResponse getReservationById(Long id) {
-        Reservation reservation = reservationRepository.getReservationById(id)
+        Reservation reservation = reservationRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Reservation with ID " + id + " has not been found!"));
         return reservationMapper.toResponse(reservation);
     }
 
     public List<ReservationResponse> getReservationByUserId(Long userId) {
-        return reservationRepository.getReservationByUserId(userId).stream()
+        return reservationRepository.findByUserUserId(userId).stream()
                 .map(reservationMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
     public List<ReservationResponse> getReservationByRoomId(Long roomId) {
-        return reservationRepository.getReservationByRoomId(roomId).stream()
+        return reservationRepository.findByRoomRoomId(roomId).stream()
                 .map(reservationMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
     public List<ReservationResponse> getReservationByDateRange(LocalDate start, LocalDate end) {
-        return reservationRepository.getReservationByDateRange(start, end).stream()
+        return reservationRepository.findByCheckInDateBetween(start, end).stream()
                 .map(reservationMapper::toResponse)
                 .collect(Collectors.toList());
     }
