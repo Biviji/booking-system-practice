@@ -1,12 +1,10 @@
 package com.example.booking_system_practice.repository;
 
 import com.example.booking_system_practice.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface UserRepository {
-    User saveUser(User user);
-    List<User> getAllUsers();
-    Optional<User> getUserById(Long id);
+public interface UserRepository extends JpaRepository<User, Long> {
 }
