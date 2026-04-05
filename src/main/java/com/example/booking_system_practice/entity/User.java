@@ -1,16 +1,27 @@
 package com.example.booking_system_practice.entity;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "users")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
+
+    @Column(nullable = false, length = 50)
     private String userName;
+
+    @Column(nullable = false, unique = true)
     private String userEmail;
 
 //    public User(Long userId, String userName, String userEmail) {
