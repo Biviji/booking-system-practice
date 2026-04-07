@@ -19,11 +19,13 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reservationId;
 
-    @Column(nullable = false)
-    private Long userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId", nullable = false)
+    private User user;
 
-    @Column(nullable = false)
-    private Long roomId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "roomId", nullable = false)
+    private Room room;
 
     @Column(nullable = false)
     private LocalDate checkInDate;

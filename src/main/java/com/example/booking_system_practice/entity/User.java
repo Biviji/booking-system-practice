@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,6 +24,9 @@ public class User {
 
     @Column(nullable = false, unique = true)
     private String userEmail;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Reservation> reservationList = new ArrayList<>();
 
 //    public User(Long userId, String userName, String userEmail) {
 //        this.userId = userId;
