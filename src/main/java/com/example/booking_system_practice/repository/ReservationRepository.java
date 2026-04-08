@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
-    List<Reservation> findByUserId(Long userId);
-    List<Reservation> findByRoomId(Long roomId);
+    List<Reservation> findByUserUserId(Long userUserId);
+    List<Reservation> findByRoomRoomId(Long roomId);
     List<Reservation> findByCheckInDateBetween(LocalDate start, LocalDate end);
 }
