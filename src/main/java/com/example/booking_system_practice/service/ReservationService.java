@@ -45,7 +45,7 @@ public class ReservationService {
             throw new RuntimeException("Room is not available!");
         }
 
-        List<Reservation> existingReservations = reservationRepository.findByRoomId(request.getRoomId());
+        List<Reservation> existingReservations = reservationRepository.findByRoomRoomId(request.getRoomId());
 
         boolean isOverlap = existingReservations.stream()
                 .anyMatch(r -> !r.getCheckOutDate().isBefore(request.getCheckInDate()) &&
@@ -75,13 +75,13 @@ public class ReservationService {
     }
 
     public List<ReservationResponse> getReservationByUserId(Long userId) {
-        return reservationRepository.findByUserId(userId).stream()
+        return reservationRepository.findByUserUserId(userId).stream()
                 .map(reservationMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
     public List<ReservationResponse> getReservationByRoomId(Long roomId) {
-        return reservationRepository.findByRoomId(roomId).stream()
+        return reservationRepository.findByRoomRoomId(roomId).stream()
                 .map(reservationMapper::toResponse)
                 .collect(Collectors.toList());
     }
