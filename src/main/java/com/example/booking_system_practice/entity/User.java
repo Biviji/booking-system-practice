@@ -25,6 +25,9 @@ public class User {
     @Column(nullable = false, unique = true)
     private String userEmail;
 
+    @Column(nullable = false)
+    private String password;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Reservation> reservationList = new ArrayList<>();
 
