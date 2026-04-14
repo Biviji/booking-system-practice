@@ -3,6 +3,8 @@ package com.example.booking_system_practice.mapper;
 import com.example.booking_system_practice.dto.request.CreateReservationRequest;
 import com.example.booking_system_practice.dto.response.ReservationResponse;
 import com.example.booking_system_practice.entity.Reservation;
+import com.example.booking_system_practice.entity.Room;
+import com.example.booking_system_practice.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -19,8 +21,6 @@ public interface ReservationMapper {
 
 
     @Mapping(target = "reservationId", ignore = true)
-    @Mapping(target = "user", ignore = true)
-    @Mapping(target = "room", ignore = true)
     @Mapping(target = "reservationStatus", ignore = true)
-    Reservation toEntity(CreateReservationRequest request);
+    Reservation toEntity(CreateReservationRequest request, User user, Room room);
 }

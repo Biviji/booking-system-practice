@@ -55,7 +55,7 @@ public class ReservationService {
             throw new RuntimeException("Room is already booked for these dates!");
         }
 
-        Reservation reservation = reservationMapper.toEntity(request);
+        Reservation reservation = reservationMapper.toEntity(request, user, room);
         reservation.setReservationStatus(ReservationStatus.CONFIRMED);
         Reservation saved = reservationRepository.save(reservation);
 
