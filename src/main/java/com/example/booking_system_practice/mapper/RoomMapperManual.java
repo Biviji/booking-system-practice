@@ -1,7 +1,7 @@
 package com.example.booking_system_practice.mapper;
 
-import com.example.booking_system_practice.DTO.request.CreateRoomRequest;
-import com.example.booking_system_practice.DTO.response.RoomResponse;
+import com.example.booking_system_practice.dto.request.CreateRoomRequest;
+import com.example.booking_system_practice.dto.response.RoomResponse;
 import com.example.booking_system_practice.entity.Room;
 
 // How it works without MapStruct, a way to transform data manually

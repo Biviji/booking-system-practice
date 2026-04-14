@@ -1,4 +1,4 @@
-package com.example.booking_system_practice.DTO.request;
+package com.example.booking_system_practice.dto.request;
 
 import com.example.booking_system_practice.enums.RoomType;
 import jakarta.validation.constraints.NotBlank;

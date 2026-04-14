@@ -1,7 +1,7 @@
 package com.example.booking_system_practice.controller;
 
-import com.example.booking_system_practice.DTO.request.CreateUserRequest;
-import com.example.booking_system_practice.DTO.response.UserResponse;
+import com.example.booking_system_practice.dto.request.CreateUserRequest;
+import com.example.booking_system_practice.dto.response.UserResponse;
 import com.example.booking_system_practice.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;

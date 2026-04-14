@@ -1,9 +1,9 @@
 package com.example.booking_system_practice.controller;
 
-import com.example.booking_system_practice.DTO.request.LoginRequest;
-import com.example.booking_system_practice.DTO.request.RegisterRequest;
-import com.example.booking_system_practice.DTO.response.AuthResponse;
-import com.example.booking_system_practice.DTO.response.UserResponse;
+import com.example.booking_system_practice.dto.request.LoginRequest;
+import com.example.booking_system_practice.dto.request.RegisterRequest;
+import com.example.booking_system_practice.dto.response.AuthResponse;
+import com.example.booking_system_practice.dto.response.UserResponse;
 import com.example.booking_system_practice.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;

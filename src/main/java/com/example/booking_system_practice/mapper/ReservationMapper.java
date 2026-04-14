@@ -1,7 +1,7 @@
 package com.example.booking_system_practice.mapper;
 
-import com.example.booking_system_practice.DTO.request.CreateReservationRequest;
-import com.example.booking_system_practice.DTO.response.ReservationResponse;
+import com.example.booking_system_practice.dto.request.CreateReservationRequest;
+import com.example.booking_system_practice.dto.response.ReservationResponse;
 import com.example.booking_system_practice.entity.Reservation;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

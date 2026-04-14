@@ -1,7 +1,7 @@
 package com.example.booking_system_practice.service;
 
-import com.example.booking_system_practice.DTO.request.CreateRoomRequest;
-import com.example.booking_system_practice.DTO.response.RoomResponse;
+import com.example.booking_system_practice.dto.request.CreateRoomRequest;
+import com.example.booking_system_practice.dto.response.RoomResponse;
 import com.example.booking_system_practice.entity.Room;
 import com.example.booking_system_practice.exception.NotFoundException;
 import com.example.booking_system_practice.mapper.RoomMapper;

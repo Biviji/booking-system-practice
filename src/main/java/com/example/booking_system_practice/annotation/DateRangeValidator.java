@@ -1,6 +1,6 @@
 package com.example.booking_system_practice.annotation;
 
-import com.example.booking_system_practice.DTO.request.CreateReservationRequest;
+import com.example.booking_system_practice.dto.request.CreateReservationRequest;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

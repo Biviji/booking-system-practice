@@ -1,4 +1,4 @@
-package com.example.booking_system_practice.DTO.response;
+package com.example.booking_system_practice.dto.response;
 
 import com.example.booking_system_practice.enums.RoomType;
 import lombok.AllArgsConstructor;
