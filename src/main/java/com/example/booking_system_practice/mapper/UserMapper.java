@@ -12,6 +12,8 @@ public interface UserMapper {
     @Mapping(target = "userId", ignore = true)
     @Mapping(source = "name", target = "userName")
     @Mapping(source = "email", target = "userEmail")
+    @Mapping(target = "password", ignore = true)
+    @Mapping(target = "reservationList", ignore = true)
     User toEntity(CreateUserRequest request);
 
     @Mapping(source = "userId", target = "id")

@@ -11,7 +11,7 @@ import org.mapstruct.Mappings;
 public interface ReservationMapper {
 
     @Mappings({
-            @Mapping(source = "reservationId", target = "id"),
+            @Mapping(source = "reservationId", target = "reservationId"),
             @Mapping(source = "user", target = "user"),
             @Mapping(source = "room", target = "room")
     })
@@ -21,6 +21,6 @@ public interface ReservationMapper {
     @Mapping(target = "reservationId", ignore = true)
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "room", ignore = true)
-    @Mapping(target = "status", ignore = true)
+    @Mapping(target = "reservationStatus", ignore = true)
     Reservation toEntity(CreateReservationRequest request);
 }

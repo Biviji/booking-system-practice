@@ -9,6 +9,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface RoomMapper {
 
+    @Mapping(target = "reservationList", ignore = true)
     @Mapping(target = "roomId", ignore = true)
     Room toEntity(CreateRoomRequest request);
     RoomResponse toResponse(Room room);
