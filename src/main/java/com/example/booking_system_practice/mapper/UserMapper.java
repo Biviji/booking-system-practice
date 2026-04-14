@@ -12,7 +12,7 @@ public interface UserMapper {
     @Mapping(target = "userId", ignore = true)
     @Mapping(source = "name", target = "userName")
     @Mapping(source = "email", target = "userEmail")
-    @Mapping(target = "password", ignore = true)
+    @Mapping(source = "password", target = "password")
     @Mapping(target = "reservationList", ignore = true)
     User toEntity(CreateUserRequest request);
 
