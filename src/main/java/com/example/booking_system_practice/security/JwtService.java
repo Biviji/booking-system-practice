@@ -66,7 +66,7 @@ public class JwtService {
         return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
                 .build()
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody();
     }
 
@@ -86,12 +86,12 @@ public class JwtService {
         return extractClaim(token, claims -> claims.get("userId", Long.class));
     }
 
-    public Date extractExpritation(String token) {
+    public Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
 
     private Boolean isTokenExpired(String token) {
-        return extractExpritation(token).before(new Date());
+        return extractExpiration(token).before(new Date());
     }
 
     public Boolean validateToken(String token, String email) {
