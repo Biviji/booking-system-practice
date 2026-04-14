@@ -1,9 +1,9 @@
 package com.example.booking_system_practice.service;
 
-import com.example.booking_system_practice.DTO.request.LoginRequest;
-import com.example.booking_system_practice.DTO.request.RegisterRequest;
-import com.example.booking_system_practice.DTO.response.AuthResponse;
-import com.example.booking_system_practice.DTO.response.UserResponse;
+import com.example.booking_system_practice.dto.request.LoginRequest;
+import com.example.booking_system_practice.dto.request.RegisterRequest;
+import com.example.booking_system_practice.dto.response.AuthResponse;
+import com.example.booking_system_practice.dto.response.UserResponse;
 import com.example.booking_system_practice.entity.User;
 import com.example.booking_system_practice.exception.NotFoundException;
 import com.example.booking_system_practice.mapper.UserMapper;
@@ -38,7 +38,7 @@ public class AuthService {
         User user = new User();
         user.setUserName(request.getName());
         user.setUserEmail(request.getEmail());
-        user.setPassword(request.getPassword());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
         User saved = userRepository.save(user);
         return userMapper.toResponse(saved);
     }
