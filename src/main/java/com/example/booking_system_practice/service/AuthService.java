@@ -5,6 +5,8 @@ import com.example.booking_system_practice.dto.request.RegisterRequest;
 import com.example.booking_system_practice.dto.response.AuthResponse;
 import com.example.booking_system_practice.dto.response.UserResponse;
 import com.example.booking_system_practice.entity.User;
+import com.example.booking_system_practice.exception.BadRequestException;
+import com.example.booking_system_practice.exception.ConflictException;
 import com.example.booking_system_practice.exception.NotFoundException;
 import com.example.booking_system_practice.mapper.UserMapper;
 import com.example.booking_system_practice.repository.UserRepository;
@@ -14,6 +16,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Locale;
 
 @Service
 public class AuthService {
@@ -32,22 +36,41 @@ public class AuthService {
     }
 
     public UserResponse register(RegisterRequest request) {
-        if (userRepository.existsByUserEmail(request.getEmail())) {
-            throw new RuntimeException("Email already registered: " + request.getEmail());
+        String normalizedEmail = normalizeEmail(request.getEmail());
+
+        if (userRepository.existsByUserEmail(normalizedEmail)) {
+            throw new ConflictException("Email already registered: " + normalizedEmail);
         }
+
         User user = new User();
         user.setUserName(request.getName());
-        user.setUserEmail(request.getEmail());
+        user.setUserEmail(normalizedEmail);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         User saved = userRepository.save(user);
         return userMapper.toResponse(saved);
     }
 
     public AuthResponse login(LoginRequest request) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-        User user = userRepository.findByUserEmail(request.getEmail())
+        String normalizedEmail = normalizeEmail(request.getEmail());
+
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        normalizedEmail,
+                        request.getPassword()
+                ));
+
+        User user = userRepository.findByUserEmail(normalizedEmail)
                 .orElseThrow(() -> new NotFoundException("user not found"));
         String token = jwtService.generateToken(user.getUserId(), user.getUserEmail());
         return new AuthResponse(token, user.getUserId(), user.getUserEmail());
+    }
+
+    private String normalizeEmail(String email) {
+
+        if (email == null) {
+            throw new BadRequestException("Email cannot be null");
+        }
+
+        return email.trim().toLowerCase(Locale.ROOT);
     }
 }
