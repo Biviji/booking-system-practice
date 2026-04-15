@@ -4,6 +4,7 @@ import com.example.booking_system_practice.dto.request.CreateRoomRequest;
 import com.example.booking_system_practice.dto.response.RoomResponse;
 import com.example.booking_system_practice.service.RoomService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class RoomController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public RoomResponse createRoom(@Valid @RequestBody CreateRoomRequest request) {
         return roomService.createRoom(request);
     }

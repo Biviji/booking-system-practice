@@ -4,6 +4,7 @@ import com.example.booking_system_practice.dto.request.CreateUserRequest;
 import com.example.booking_system_practice.dto.response.UserResponse;
 import com.example.booking_system_practice.service.UserService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class UserController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public UserResponse createUser(@Valid @RequestBody CreateUserRequest request) {
         return userService.createUser(request);
     }

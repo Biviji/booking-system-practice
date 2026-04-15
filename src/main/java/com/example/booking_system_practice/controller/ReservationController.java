@@ -4,6 +4,7 @@ import com.example.booking_system_practice.dto.request.CreateReservationRequest;
 import com.example.booking_system_practice.dto.response.ReservationResponse;
 import com.example.booking_system_practice.service.ReservationService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -18,6 +19,7 @@ public class ReservationController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public ReservationResponse createReservation(@Valid @RequestBody CreateReservationRequest request) {
         return reservationService.createReservation(request);
     }
