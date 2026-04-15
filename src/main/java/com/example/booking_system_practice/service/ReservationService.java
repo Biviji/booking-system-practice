@@ -6,6 +6,7 @@ import com.example.booking_system_practice.entity.Reservation;
 import com.example.booking_system_practice.enums.ReservationStatus;
 import com.example.booking_system_practice.entity.Room;
 import com.example.booking_system_practice.entity.User;
+import com.example.booking_system_practice.exception.ConflictException;
 import com.example.booking_system_practice.exception.NotFoundException;
 import com.example.booking_system_practice.mapper.ReservationMapper;
 import com.example.booking_system_practice.repository.ReservationRepository;
@@ -42,17 +43,18 @@ public class ReservationService {
         Room room = roomRepository.findById(request.getRoomId()).orElseThrow(() -> new NotFoundException("Room with ID " + request.getRoomId() + " not found!"));
 
         if (!room.getIsAvailable()) {
-            throw new RuntimeException("Room is not available!");
+            throw new ConflictException("Room is not available!");
         }
 
         List<Reservation> existingReservations = reservationRepository.findByRoomRoomId(request.getRoomId());
 
         boolean isOverlap = existingReservations.stream()
-                .anyMatch(r -> !r.getCheckOutDate().isBefore(request.getCheckInDate()) &&
-                !request.getCheckInDate().isAfter(request.getCheckOutDate()));
+                .anyMatch(r ->
+                        !r.getCheckOutDate().isBefore(request.getCheckInDate()) &&
+                        !r.getCheckInDate().isAfter(request.getCheckOutDate()));
 
         if (isOverlap) {
-            throw new RuntimeException("Room is already booked for these dates!");
+            throw new ConflictException("Room is already booked for these dates!");
         }
 
         Reservation reservation = reservationMapper.toEntity(request, user, room);
