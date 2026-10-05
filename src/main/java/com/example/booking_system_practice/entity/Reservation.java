@@ -2,15 +2,13 @@ package com.example.booking_system_practice.entity;
 
 import com.example.booking_system_practice.enums.ReservationStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "reservations")
 public class Reservation {
